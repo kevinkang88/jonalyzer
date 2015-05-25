@@ -37,4 +37,8 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+gem 'react-rails', '~> 1.0'
 
+gem "browserify-rails", "~> 0.7"
+
+gem "rapgenius", "~> 1.0.5"

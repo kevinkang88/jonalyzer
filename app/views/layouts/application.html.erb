@@ -1,14 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Jonalyzer</title>
+  <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <title>Lil' Jonalyzer</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
+<!-- navbar -->
+<nav class="purple">
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo">Lil' Jonalyzer</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="sass.html">About</a></li>
+      <li><a href="components.html">How To</a></li>
+    </ul>
+  </div>
+</nav>
+<!-- lil jon face button on push -->
+<%= react_component('Jonsface') %>
+
 <%= yield %>
 
+<footer class="page-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">Lil' Jon..</h5>
+        <p class="grey-text text-lighten-4">Let's get this motha crunk!</p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">&nbsp;</h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" href="#!">&nbsp;</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">&nbsp;</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">&nbsp;</a></li>
+          <li><a class="grey-text text-lighten-3" href="#!">&nbsp;</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+    © 2014 Copyright    created by Dongyoon Kang
+    <a class="grey-text text-lighten-4 right" href="#!"></a>
+    </div>
+  </div>
+</footer>
+            
 </body>
 </html>

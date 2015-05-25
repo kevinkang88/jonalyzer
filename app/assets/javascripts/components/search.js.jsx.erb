@@ -1,0 +1,160 @@
+window.Search = React.createClass({
+
+  getInitialState: function(){
+    return {
+      audioSrc : "http://dongyoonkang.co/sounds/letthismother.mp3"
+    }
+  },
+  
+  playGetCrunk: function(){
+    console.log("I'm inside playGetCrunk")
+    var crunkSound = document.createElement('audio');
+    crunkSound.setAttribute('src', this.state.audioSrc);
+    $.get();
+    crunkSound.play();
+  },
+
+  saveValues: function(fields){
+    for(var prop in fields){
+      if(fieldValues.hasOwnProperty(prop)){
+        fieldValues[prop] = fields[prop] ; 
+      }; 
+    };
+  },
+
+  ////////////////////////////////////////////////////////
+  // functions below are related to fields verification //
+  ////////////////////////////////////////////////////////
+
+  // this function returns true if name fields(i.e. firstname, lastname) are verified 
+  verifyName: function(name){
+    var nameRe = new RegExp("^[A-Z][$a-z\']*");
+    return nameRe.test(name) ; 
+  },
+
+  //  this function returns true if email format is returned correctly 
+  verifyEmail: function(email){
+    var emailRe = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+    return emailRe.test(email) ; 
+  },
+
+  // this function returns true if strength is highier than medium 
+  verifyPasswordStrength: function(field){
+    var passStrengthScale = {veryweak: 0, 
+                             weak:     1,
+                             medium:   2,
+                             strong:   3} ; 
+    var userPassStrength = $('.strength_meter').children().attr('class');
+    return (passStrengthScale[userPassStrength] > 1) && (field.length >= 8) ;
+  },
+
+  // this function returns true if password matches password confirm 
+  verifyPasswordMatch: function(fields){
+    return fields.password === fields.passwordc ; 
+  },
+  verifyPasswordLength: function(field){
+    return field.length >= 8
+  },
+  // this function returns true if field is not empty 
+  verifyPresence: function(field){
+    return ((field != '') && (field != 'Choose One'))
+  },
+
+  // this function returns an array of fields that needs correction
+  failedAccountFields: function(fields){
+    var failedFields = [],
+        prop ; 
+    for(prop in fields){
+      if((prop === 'firstname') && !(this.verifyName(fields[prop]))){
+        failedFields.push(prop) ; 
+      } else if((prop === 'lastname') && !(this.verifyName(fields[prop]))){
+        failedFields.push(prop) ; 
+      } else if((prop === 'email') && !(this.verifyEmail(fields[prop]))){
+        failedFields.push(prop) ; 
+      } else if((prop === 'password') && !(this.verifyPasswordStrength(fields[prop])) && !(this.verifyPasswordLength(fields[prop]))){
+        failedFields.push(prop) ; 
+      } else if((prop === 'passwordc')  && !(this.verifyPasswordMatch(fields))){
+        failedFields.push('passwordc') ; 
+      } 
+    }
+    console.debug(failedFields) ; 
+    return failedFields
+  },
+
+  failedSocietyFields: function(fields){
+    var failedFields = []
+    for(prop in fields){
+      if((prop === 'societyId') && !(this.verifyPresence(fields[prop]))){
+        failedFields.push(prop) ; 
+      }else if((prop === 'society') && !(this.verifyPresence(fields[prop]))){
+        failedFields.push(prop) ; 
+      }else if((prop === 'ipicae') && (fields['society'] === 'bmi') && !(this.verifyPresence(fields[prop]))){
+        failedFields.push(prop) ; 
+      }
+    }
+    console.debug(failedFields) ; 
+    return failedFields
+  },
+
+  failedOptionalFields: function(fields){
+    var failedFields = []
+    for(prop in fields){
+      if((prop === 'genre') && (fields[prop].length > 3)){
+        failedFields.push(prop) ; 
+      }      
+    }
+    return failedFields ; 
+  },
+
+  ////////////////////////////
+  // end of function fields //
+  ////////////////////////////
+
+  nextStep: function(){
+    this.setState({
+      step : this.state.step + 1
+    })
+  },
+
+  previousStep: function(){
+    this.setState({
+      step : this.state.step - 1
+    })
+  },
+
+  signUpUser: function(){
+    console.debug("hey you are inside signUpUser function :D") ; 
+    $.ajax({
+      url: "/users",
+      dataType: 'json',
+      type: 'POST',
+      data: fieldValues,
+      success: function(data){
+        console.debug(data) ; 
+        console.debug(":] success!") ; 
+        var profileId = data.profile_id.$oid ; 
+        window.location.href = "/profiles/" + profileId ; 
+      },
+      error: function(xhr,status,err){
+        console.error(this.props.url, status, err.toString()) ; 
+        console.debug(":[ failed~") ; 
+      }
+    });
+  },
+
+  render: function(){
+    return(
+      <div className="search-box">
+        <div className="row">
+          <div className="input-field col s12">
+            <input placeholder="Search by song title" type="text" />
+            <a className="waves-effect waves-light btn right enter-search-btn red accent-4">Search</a>
+          </div>
+        </div>        
+      </div>// end of search-box
+    )
+  }
+})
+
+
+

@@ -1,0 +1,15 @@
+.face-box {
+}
+
+.face-img {
+  width: 400px;
+  height: auto;
+  display: block;
+  margin: 20px auto 0 auto;
+}
+
+.face-img:hover {
+  position: relative;
+  top: 10px;
+  left: 10px;
+}
