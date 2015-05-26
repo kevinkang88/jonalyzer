@@ -1,0 +1,19 @@
+.analyzed-result-box {
+  margin: 0 15%;
+}
+
+.card-image img {
+  width: 290px;
+  height: 210px;
+}
+
+.card-content p {
+  text-align: center;
+  font-size: 25px;
+}
+
+.card:hover {
+  position: relative;
+  top: 10px;
+  left: 10px;
+}

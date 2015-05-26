@@ -1,0 +1,49 @@
+/*** @jsx React.DOM */
+
+var initialSearchResult = [] ;
+var analyzedResult = {} ; 
+
+window.Analyzer = React.createClass({
+
+  getInitialState: function(){
+    return {
+      step : 1
+    }
+  },
+  
+  saveValues: function(song){
+      // fieldValues = Object.assign({}, fieldValues, fields)
+      // TODO : Object.assign is not supported yet in all browsers so looping ugly way,
+      //        refactor later
+    initialSearchResult.push(song);
+  },
+
+  saveAnalysis: function(data){
+    analyzedResult = data ; 
+  },
+
+  nextStep: function(){
+    this.setState({
+      step : this.state.step + 1
+    })
+  },
+
+  render: function(){
+    switch(this.state.step){
+      case 1:
+        return <Search        nextStep={this.nextStep}
+                              initialSearchResult={initialSearchResult}
+                              saveValues={this.saveValues}               />
+      case 2:
+        return <ShowSearchResult  nextStep={this.nextStep}
+                                  initialSearchResult={initialSearchResult}
+                                  analyzedResult={analyzedResult}
+                                  saveAnalysis={this.saveAnalysis}           
+                                  saveValues={this.saveValues} />
+      case 3:
+        return <ShowAnalyzedResults analyzedResult={analyzedResult} />
+      
+    }
+  }
+})
+

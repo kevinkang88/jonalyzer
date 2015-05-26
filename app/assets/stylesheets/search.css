@@ -1,3 +1,11 @@
 .search-box {
   margin: 0 15%;
 }
+
+.search-results-box {
+  margin: 0 15%;
+}
+
+.collection-item {
+  text-align: center;
+}

@@ -1,0 +1,74 @@
+/*** @jsx React.DOM */
+
+window.ShowAnalyzedResults = React.createClass({
+
+  playYeah: function(){
+    var audioSrc = "http://dongyoonkang.co/sounds/yea.mp3";
+    var yeahSound = document.createElement('audio');
+    yeahSound.setAttribute('src', audioSrc);
+    $.get();
+    yeahSound.play();
+  },
+  playOk: function(){
+    var audioSrc = "http://dongyoonkang.co/sounds/okay.mp3";
+    var okSound = document.createElement('audio');
+    okSound.setAttribute('src', audioSrc);
+    $.get();
+    okSound.play();
+  },
+  playWhat: function(){
+    var audioSrc = "http://dongyoonkang.co/sounds/what.mp3";
+    var whatSound = document.createElement('audio');
+    whatSound.setAttribute('src', audioSrc);
+    $.get();
+    whatSound.play();
+  },
+
+  render: function(){
+    return(
+      <div className="analyzed-result-box">
+
+        <div className="row">
+          <div className="col s12 m4">
+            <div className="card z-depth-5">
+              <div className="card-image">
+                <img src="http://www.dongyoonkang.co/images/yeah.jpg" onMouseEnter={this.playYeah}/>
+                <span className="card-title">Total YEAHs</span>
+              </div>
+              <div className="card-content">
+                <p id="yeah_count">{this.props.analyzedResult.yeah}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="col s12 m4">
+            <div className="card z-depth-5">
+              <div className="card-image">
+                <img src="http://www.dongyoonkang.co/images/ok.jpeg" onMouseEnter={this.playOk} /> 
+                <span className="card-title">Total OKs</span>
+              </div>
+              <div className="card-content">
+                <p id="ok_count">{this.props.analyzedResult.ok}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="col s12 m4">
+            <div className="card z-depth-5">
+              <div className="card-image">
+                <img src="http://www.dongyoonkang.co/images/what.jpg" onMouseEnter={this.playWhat}/>
+                <span className="card-title">Total WHATs</span>
+              </div>
+              <div className="card-content">
+                <p id="what_count">{this.props.analyzedResult.what}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>// end of search-box
+    )
+  }
+})
+
+
+

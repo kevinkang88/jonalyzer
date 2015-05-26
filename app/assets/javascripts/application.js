@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require materialize
+//= require countup
 //= require react
 //= require react_ujs
 //= require components

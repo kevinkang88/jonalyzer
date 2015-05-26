@@ -1,0 +1,43 @@
+/*** @jsx React.DOM */
+
+window.ShowSearchResult = React.createClass({
+
+  analyze: function(e) {
+    e.preventDefault(); 
+    var saveAnal = this.props.saveAnalysis
+    var nextSt = this.props.nextStep
+    if(e.target.tagName == 'A'){
+      var songId = e.target.dataset.id ; 
+    }else{
+      var songId = e.target.parentElement.dataset.id ; 
+    }
+    $.ajax({
+      url: "/lyrics/analyze",
+      dataType: 'json',
+      type: 'GET',
+      data: {id: songId} ,
+      success: function(data){
+        console.debug(data) ; 
+        console.debug(":] successfully for analytics yo!") ; 
+        saveAnal(data);          
+        nextSt() ;  
+      },
+      error: function(xhr,status,err){
+        console.debug(":[ failed~") ; 
+      }
+    });
+  },
+
+
+  render: function() {
+    return (
+      <div className="search-results-box">
+        <div className="collection">
+          {this.props.initialSearchResult.map(function(song){
+            return <a href="#" data-id={song.id} className="collection-item" key={song.id} onClick={this.analyze}>{song.artist} - {song.title}</a>
+          }.bind(this))}
+        </div>
+      </div>// end of search-box
+    )
+  }
+})
